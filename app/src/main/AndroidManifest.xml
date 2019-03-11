@@ -23,6 +23,9 @@
         <activity android:name=".FeedDetailActivity">
         </activity>
 
+        <activity android:name=".CommentsActivity">
+        </activity>
+
     </application>
 
 </manifest>

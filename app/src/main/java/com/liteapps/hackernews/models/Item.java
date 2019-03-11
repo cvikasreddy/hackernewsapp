@@ -3,8 +3,11 @@ package com.liteapps.hackernews.models;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class FeedItem implements Serializable {
+import androidx.annotation.NonNull;
+
+public class Item implements Serializable {
 
     @SerializedName("id")
     private Integer id;
@@ -24,13 +27,17 @@ public class FeedItem implements Serializable {
     @SerializedName("time")
     private Integer time;
 
-    public FeedItem(Integer id, String title, Integer score, String url, String type, Integer time) {
+    @SerializedName("kids")
+    private ArrayList<Integer> kids;
+
+    public Item(Integer id, String title, Integer score, String url, String type, Integer time, ArrayList<Integer> kids) {
         this.id = id;
         this.title = title;
         this.score = score;
         this.url = url;
         this.type = type;
         this.time = time;
+        this.kids = kids;
     }
 
     public Integer getId() {
@@ -57,4 +64,13 @@ public class FeedItem implements Serializable {
         return url;
     }
 
+    public ArrayList<Integer> getKids() {
+        return kids;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "" + id;
+    }
 }
