@@ -17,6 +17,7 @@ import com.liteapps.hackernews.network.RetrofitInstance;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,6 +64,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
 
                     holder.commentTime.setText((new java.util.Date((long) item.getTime()*1000)).toString().split("GMT")[0]);
+
+                    if(item.getKids() != null && item.getKids().size() > 0) {
+                        CommentsAdapter mCommentAdapter = new CommentsAdapter(mContext, item.getKids());
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+
+                        holder.commentRecyclerView.setAdapter(mCommentAdapter);
+                        holder.commentRecyclerView.setLayoutManager(layoutManager);
+                        holder.commentRecyclerView.setNestedScrollingEnabled(false);
+                    }
                 }
             }
 
@@ -78,12 +88,14 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         private TextView commentText;
         private TextView commentTime;
+        private RecyclerView commentRecyclerView;
 
         private VHCommentItem(View commentView) {
             super(commentView);
 
             commentText = commentView.findViewById(R.id.item_title);
             commentTime = commentView.findViewById(R.id.item_time);
+            commentRecyclerView = commentView.findViewById(R.id.recycler_view_list);
         }
     }
 
